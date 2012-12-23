@@ -3,9 +3,6 @@ using System.Xml;
 
 namespace GreenlakeChristmas.RDSFeed.Configuration
 {
-    /// <summary>
-    /// <Case when="Checkin" method="GetCheckin" template="{0} checked in on 4square on {1} {2}" />
-    /// </summary>
     public class Template
     {
         

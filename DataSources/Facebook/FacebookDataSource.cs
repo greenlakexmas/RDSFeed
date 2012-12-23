@@ -97,41 +97,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
             this.dataKey = this.GetNextDataKey(this.dataKey);
             return string.Format(template.Text, values);
 
-            //string output = string.Empty;
-            //JsonObject jsonResult = null;
-            //try
-            //{
-            //    jsonResult = (JsonObject)this.facebookClient.Get(this.object_id);
-            //}
-            //catch(Exception ex)
-            //{
-            //    this.InitializeClient();
-            //}
-
-            //if (jsonResult != null)
-            //{
-            //    string keyvalue = jsonResult[this.dataKey.ToString().ToLower()].ToString();
-            //    switch(this.dataKey)
-            //    {
-            //        case DataKey.Checkins:
-            //            output = string.Format("{0} people have checked in at Greenlake Christmas on Facebook", keyvalue);
-            //            this.dataKey = DataKey.Talking_About_Count;
-            //            break;
-            //        case DataKey.Talking_About_Count:
-            //            output = string.Format("{0} people are talking about Greenlake Christmas on Facebook", keyvalue);
-            //            this.dataKey = DataKey.Likes;
-            //            break;
-            //        case DataKey.Likes:
-            //            output = string.Format("{0} people like Greenlake Christmas on Facebook", keyvalue);
-            //            this.dataKey = DataKey.Were_Here_Count;
-            //            break;
-            //        case DataKey.Were_Here_Count:
-            //            output = string.Format("{0} people were at Greenlake Christmas on Facebook", keyvalue);
-            //            this.dataKey = DataKey.Checkins;
-            //            break;
-            //    }
-            //}
-            //return output;
         }
 
         private string GetValue(DataKey dataKey)

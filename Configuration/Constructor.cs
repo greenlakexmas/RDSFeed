@@ -3,9 +3,6 @@ using System.Xml;
 
 namespace GreenlakeChristmas.RDSFeed.Configuration
 {
-    //      <Constructor>
-    //          <Parameter name="mediafilepath" value="c:\Users\jeffro\song.txt" />
-    //      </Constructor>
     public class Constructor
     {
         private Dictionary<int, Parameter> parameters;

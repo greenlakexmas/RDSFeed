@@ -58,39 +58,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Foursquare
             MethodInfo methodInfo = this.GetType().GetMethod(template.MethodName);
             object[] values = (object[]) methodInfo.Invoke(this, null);
             return string.Format(template.Text, values);
-
-            //ApiResponse response = ApiResponse.GetVenue(this.oauth_token, this.venue_id);
-            //switch(this.dataMode)
-            //{
-            //    case DataMode.Checkin:
-            //        this.GetCheckin();
-            //        //List<Checkin> checkins = new List<Checkin>();
-            //        //checkins.AddRange(response.Venue.HereNow.HereNowGroups.SelectMany(hng => hng.Checkins));
-            //        //this.logFile.Append(checkins, "Id");
-
-            //        //if (logFile.LogRecords.Any())
-            //        //{
-            //        //    LogRecord lr = logFile.GetRandomRecord();
-            //        //    DateTime dt = Convert.ToDateTime(lr.GetValue("CreatedAt"));
-            //        //    string monthname = dt.ToString("MMMM");
-            //        //    int day = dt.Day;
-            //        //    output = string.Format("{0} checked in on 4square on {1} {2}", lr.GetValue("Name"),
-            //        //                           monthname, this.GetOrdinal(day));
-            //        //}
-            //        this.dataMode = DataMode.Mayor;
-            //        break;
-            //    case DataMode.Mayor:
-            //        this.GetMayor();
-            //        //if (response.Venue.Mayor != null)
-            //        //{
-            //        //    Mayor mayor = response.Venue.Mayor;
-            //        //    output = string.Format("{0} is the Mayor of Greenlake Christmas on 4square",
-            //        //                           mayor.User.FullName);
-            //        //}
-            //        this.dataMode = DataMode.Checkin;
-            //        break;
-            //}
-            //return output;
         }
 
         public object[] GetCheckin()
