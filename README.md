@@ -20,12 +20,12 @@ The output of RDSFeed is a text file. This text file will contain a statement of
 through configuration files. When the RDSFeed application runs, an output text file is produced and continually 
 updated by the application (as long as it is running.) In graphical form:
 
-----------------
-|              |
-|     RDS      |         ==== >>>       output.txt
-|     Feed     |
-|              |
-----------------
+```
+------------
+|   RDS    |   ==== >>>   output.txt
+|   Feed   |
+------------
+```
 
 Many systems that can accept text string input, such as FM transmitters that support RDS or scrolling LED devices, 
 will monitor a text file that serves as the input source. RDSFeed is constructed to create such an output file.
@@ -38,4 +38,8 @@ RDSFeed is both configurable and extensible.
 
 Configuration
 -------------
+
+Configuration for RDSFeed is contained in a file named "rds.config". It lives in the same directory as the RDSFeed
+application. RDSFeed looks for this file on startup and uses it as the basis for operation.
+The source code contains an example configuration file, which we'll refer to here.
 
