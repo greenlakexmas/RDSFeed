@@ -2,7 +2,7 @@ RDSFeed
 =======
 
 RDSFeed is an application for constructing timely text statements from multiple inforation sources for use over RDS. 
-Actually, "RDS" (which standard for Radio Data System) is a misnomer here -- I use this application for sending 
+Actually, "RDS" (an acronym for Radio Data System) is a misnomer here -- I use this application for sending 
 data over RDS. However, it can just as easily work for other systems that can accept text, such as scrolling 
 LED readers.
 
@@ -41,5 +41,7 @@ Configuration
 
 Configuration for RDSFeed is contained in a file named "rds.config". It lives in the same directory as the RDSFeed
 application. RDSFeed looks for this file on startup and uses it as the basis for operation.
-The source code contains an example configuration file, which we'll refer to here.
+The source code contains an 
+[example configuration file](https://github.com/greenlakexmas/RDSFeed/blob/master/rds.config.example "configuration file"), 
+which we'll refer to here.
 
