@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RDSFeed>
+  <!-- RefreshInterval
+      The time duration loop speed, measured in seconds. This setting will refresh a new message every 30 seconds.
+  -->
+  <RefreshInterval>30</RefreshInterval>
+  <!-- MergeFile
+      The target file for holding the current RDS output.
+  -->
+  <MergeFile>c:\Users\me\radio.txt</MergeFile>
+  <!-- Sources
+      Sources generate the text information to be sent over RDS. Each source is defined here.
+  -->
+  <Sources>
+    <!-- Source
+      A Source has a name (unique in the overall list) and the type (the fully-qualified class name.)
+  -->
+    <Source name="LORMediaFile" type="GreenlakeChristmas.RDSFeed.DataSources.MediaFile.MediaFileDataSource">
+      <!-- RefreshInterval
+      The time duration loop speed, measured in seconds. This setting will look for changes in the LOR media file
+      every 5 seconds.
+      -->
+      <RefreshInterval>5</RefreshInterval>
+      <!-- Priority
+      Determines how quickly text updates are handled. Priority is either "Immediate" or "General". With Immediate
+      priority, a text update is sent over RDS right away. With General priority, the text update will occur in
+      FIFO order.
+      -->
+      <Priority>Immediate</Priority>
+      <!-- Constructor
+      The Constructor defines Parameters for instantiating an instance of the Source at runtime.
+      -->
+      <Constructor>
+      <!-- Parameter
+      The Parameter is a name and value pair. Parameters are used in reflective instantiation of the Source, and
+      are order dependent.
+      -->
+        <Parameter name="mediafilepath" value="c:\Users\me\song.txt" />
+      </Constructor>
+      <!-- Templates
+      Templates define text strings used at runtime in generation of RDS data.
+      -->
+      <Templates>
+        <!-- Case
+        A Case defines a specific scenario when a template is to be applied.
+        When: defines the lookup key to be evaluated to determine if a template is to be used. The
+        values for "when" are dependent on the Source itself. Documentation provides the possible
+        range of "when" options.
+        
+        Method: the method on the class to execute if the "when" scenario applies. Any Case method must
+        return a string array. Each method will specifically return one or more string values to be 
+        applied to a template. Documentation about the method provides the list of possible values.
+        
+        Template: the text string to be used in generating any RDS statement. This is a standard C#
+        string format structure, with parameters referenced in curly brackets with numerical reference
+        to a parameter list (0,1,2,etc.)
+        -->
+        <Case when="" method="GetSongTitle" template="{0}" />
+      </Templates>
+    </Source>
+    <!-- FourSquare
+    An implementation for FourSquare is already included. The Constructor parameters require authentication
+    data obtained from the FourSquare API developer portal (https://foursquare.com/developers/apps).
+    -->
+    <Source name="FourSquare" type="GreenlakeChristmas.RDSFeed.DataSources.Foursquare.FoursquareDataSource">
+      <RefreshInterval>30</RefreshInterval>
+      <Priority>General</Priority>
+      <Constructor>
+        <Parameter name="oauthtoken" value="ZYXWVUTSRQPONMLKJIHGFEDCBA987654321" />
+        <Parameter name="venueid" value="a1b2c3d4e5f6g7h8i9" />
+        <Parameter name="datafilepath" value="c:\Users\me\4sq.txt" />
+      </Constructor>
+      <Templates>
+        <Case when="Checkin" method="GetCheckin" template="{0} checked in on 4square on {1} {2}" />
+        <Case when="Mayor" method="GetMayor" template="{0} is the Mayor of Greenlake Christmas on 4square" />
+      </Templates>
+    </Source>
+    <!-- Facebook
+    An implementation for Facebook is already included. The Constructor parameters require authentication
+    data obtained from the Facebook API developer portal (https://developers.facebook.com/apps).
+    -->
+    <Source name="Facebook" type="GreenlakeChristmas.RDSFeed.DataSources.Facebook.FacebookDataSource">
+      <RefreshInterval>45</RefreshInterval>
+      <Priority>General</Priority>
+      <Constructor>
+        <Parameter name="applicationid" value="1234567890" />
+        <Parameter name="applicationsecret" value="1234abcd5678efgh9012ijkl3456mnop" />
+        <Parameter name="objectid" value="9876543210" />
+      </Constructor>
+      <Templates>
+        <Case when="Checkins" method="GetCheckins" template="{0} people have checked in at Greenlake Christmas on Facebook" />
+        <Case when="Talking_About_Count" method="GetTalkingAboutCount" template="{0} people are talking about Greenlake Christmas on Facebook" />
+        <Case when="Likes" method="GetLikes" template="{0} people like Greenlake Christmas on Facebook" />
+        <Case when="Were_Here_Count" method="GetWereHereCount" template="{0} people were at Greenlake Christmas on Facebook" />
+      </Templates>
+    </Source>
+  </Sources>
+</RDSFeed>
