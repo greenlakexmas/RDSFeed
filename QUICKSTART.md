@@ -4,6 +4,11 @@ RDSFeed is an operational container for producing text statements in a timely ma
 be both configurable and extensible. This Quickstart is all about using the existing application and
 configuring it to run for yourself.
 
+## Instructions
+1. Configure data sources to be used
+2. Configure interoperating applications
+3. Run RDSFeed.exe
+
 ## Data sources
 
 Out of the box, RDSFeed supports three data sources:
@@ -53,4 +58,14 @@ Refresh interval defines the "loop" speed for the data source, measured in secon
 continuously, and is queried over and over by the RDSFeed application for new text. The refresh interval
 tells RDSFeed how often it should make that query. In this example, this data source is asked for new 
 text every 5 seconds.
+
+###### &lt;Priority&gt; node
+```
+<Priority>Immediate</Priority>
+```
+
+Priority defines the importance of text updates from the data source. There are two permitted values for
+Priority: General and Immediate. If the priority for a data source is "General", messages are updated on a
+first-in-first-out basis. If the priority is "Immediate", text updates from the data source are immediately
+pushed out. Due to operation, it's best that only one data source in an application be configured as Immediate.
 
