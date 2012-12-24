@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="QUICKSTART.md" />
     <None Include="rds.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
