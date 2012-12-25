@@ -28,6 +28,9 @@ updated by the application (as long as it is running.) In graphical form:
 Many systems that can accept text string input, such as FM transmitters that support RDS or scrolling LED devices, 
 will monitor a text file that serves as the input source. RDSFeed is constructed to create such an output file.
 
+## Getting started
+
+The best way to get started with RDSFeed is to check out the [quickstart](https://github.com/greenlakexmas/RDSFeed/blob/master/QUICKSTART.md).
 
 ## How it works
 
