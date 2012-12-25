@@ -69,3 +69,65 @@ Priority: General and Immediate. If the priority for a data source is "General",
 first-in-first-out basis. If the priority is "Immediate", text updates from the data source are immediately
 pushed out. Due to operation, it's best that only one data source in an application be configured as Immediate.
 
+
+###### &lt;Constructor&gt; node
+```
+<Constructor>
+  <Parameter name="mediafilepath" value="c:\Users\me\song.txt" />
+</Constructor>
+```
+
+The Constructor node defines the way the Source type is instanatiated or started. A Constructor contains a 
+set of Parameter nodes, which represent the necessary information for the Source to operate. Parameters are
+order and data-type sensitive. In this example, the Source Constructor takes a Parameter called "mediafilepath" 
+and uses the value "c:\Users\me\song.txt".
+
+The Parameters necessary for a Constructor are a function of documentation. Here are the parameter values
+needed for each type of supported data source:
+
+- MediaFileDataSource
+```
+<Constructor>
+  <Parameter name="mediafilepath" value="c:\Users\me\song.txt" />
+</Constructor>
+
+```
+- FoursquareDataSource
+```
+      <Constructor>
+        <Parameter name="oauthtoken" value="ZYXWVUTSRQPONMLKJIHGFEDCBA987654321" />
+        <Parameter name="venueid" value="a1b2c3d4e5f6g7h8i9" />
+        <Parameter name="datafilepath" value="c:\Users\me\4sq.txt" />
+      </Constructor>
+```
+- FacebookDataSource
+```
+      <Constructor>
+        <Parameter name="applicationid" value="1234567890" />
+        <Parameter name="applicationsecret" value="1234abcd5678efgh9012ijkl3456mnop" />
+        <Parameter name="objectid" value="9876543210" />
+      </Constructor>
+```
+
+###### &lt;Templates&gt; node
+```
+      <Templates>
+        <Case when="" method="GetSongTitle" template="The song is {0}" />
+      </Templates>
+```
+
+Templates define the different possible text message strings that a data source
+can generate. Each template requires a programmatic method on the data source type
+that can be executed on its behalf.
+
+Each method returns a string array of varying length, which will be applied to
+the template attribute to produce the text message. In this example, the data source
+will execute the method GetSongTitle, which will produce data that's applied to the
+template string "The song is {0}". GetSongTitle returns only a single value, which gets
+substituted for {0}, creating the text string "The song is my-song-name-here".
+
+Each data source can produce more than one text statement, which is accomplished through
+pairs of methods and accompanying template strings against which to substitute values.
+
+Pairing template strings to methods requires knowledge of the programmatic method. Each
+method provided must be documented to describe what's permitted within template text.
