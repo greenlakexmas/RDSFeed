@@ -5,6 +5,10 @@
 The Facebook data source uses the Facebook API. Access to Facebook is facilitated through a dependency
 on the [C# Facebook SDK](http://csharpsdk.org/).
 
+Usage of the Facebook API requires developer setup and configuration for a Facebook page/location. The 
+[Facebook Developer portal](https://developers.facebook.com/) contains information for getting 
+established to use the Facebook API.
+
 ## Configuration
 ```
     <Source name="Facebook" type="GreenlakeChristmas.RDSFeed.DataSources.Facebook.FacebookDataSource">
