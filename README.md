@@ -41,6 +41,19 @@ will monitor a text file that serves as the input source. RDSFeed is constructed
 
 ## How it works
 
+RDSFeed processing flow consists of:
+
+* Reading the local rds.config file for operational settings
+* Initializing and starting each data source
+* Writing outbound text messages created by the data sources
+
+RDSFeed is an operational container that executes each data source independently and concurrently to
+generate text output. The data sources are responsible for formatting, gathering and submitting text 
+messages back to the main application thread. The main application thread is responsible for pushing 
+those text messages to the output channel.
+
+## Internals
+
 RDSFeed is both configurable and extensible.
 
 #### Configuration
@@ -56,7 +69,7 @@ of those sections:
 
 * RefreshInterval - the time duration loop speed, measured in seconds. This setting will 
 refresh a new message every 30 seconds.
-* MergeFile - The target output file for RDSFeed.
+* MergeFile - the target output file for RDSFeed.
 * Sources - The different sources of text information. Each source is defined here.
 
 Each Source consists of the following:
