@@ -6,6 +6,13 @@ use this application for sending data over RDS. However, it can just as easily w
 that can accept text, such as scrolling LED readers.
 
 
+## Getting started
+
+[RDSFeed installer](https://dl.dropbox.com/u/7320109/RDSFeedInstall.msi).
+
+There is also a [quickstart](https://github.com/greenlakexmas/RDSFeed/blob/master/QUICKSTART.md) to make you
+more informed.
+
 ## What it does
 
 RDSFeed is an operational container for producing text statements in a timely manner. The RDSFeed application
@@ -28,9 +35,6 @@ updated by the application (as long as it is running.) In graphical form:
 Many systems that can accept text string input, such as FM transmitters that support RDS or scrolling LED devices, 
 will monitor a text file that serves as the input source. RDSFeed is constructed to create such an output file.
 
-## Getting started
-
-The best way to get started with RDSFeed is to check out the [quickstart](https://github.com/greenlakexmas/RDSFeed/blob/master/QUICKSTART.md).
 
 ## How it works
 
