@@ -13,7 +13,7 @@ configuring it to run for yourself.
 
 Out of the box, RDSFeed supports a few data sources:
 
-* [Text files](https://github.com/greenlakexmas/RDSFeed/edit/master/Configuration/TEXTFILES.md)
+* [Text files](https://github.com/greenlakexmas/RDSFeed/edit/master/DataSources/TextFiles/TEXTFILES.md)
 * Facebook
 * Foursquare
 * Twitter
