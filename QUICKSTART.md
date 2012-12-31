@@ -11,9 +11,9 @@ configuring it to run for yourself.
 
 ## Data sources
 
-Out of the box, RDSFeed supports three data sources:
+Out of the box, RDSFeed supports a few data sources:
 
-* Text files
+* [Text files](https://github.com/greenlakexmas/RDSFeed/edit/master/Configuration/TEXTFILES.md)
 * Facebook
 * Foursquare
 * Twitter
