@@ -75,7 +75,7 @@ namespace GreenlakeChristmas.RDSFeed
 
             while(Thread.CurrentThread.ThreadState == ThreadState.Running)
             {
-                string output = dataSource.GetRDSText();
+                string output = dataSource.GetText();
                 if (string.IsNullOrEmpty(output)) continue;
                 mainQueue.Enqueue(output);
                 Thread.Sleep(dataSource.RefreshInterval);
@@ -95,6 +95,8 @@ namespace GreenlakeChristmas.RDSFeed
                 dataSource.RefreshInterval = source.RefreshInterval;
                 dataSource.Priority = source.Priority;
                 dataSource.Queue = queues[dataSource.Priority];
+                dataSource.Options = source.Options;
+                dataSource.TemplateRotation = source.TemplateRotation;
 
                 foreach (Template template in source.Templates)
                 {

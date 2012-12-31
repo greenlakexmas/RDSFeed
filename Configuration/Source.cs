@@ -60,6 +60,21 @@ namespace GreenlakeChristmas.RDSFeed.Configuration
             }
             XmlNode xnConstructor = xmlNode.SelectSingleNode("Constructor");
             this.Constructor = new Constructor(xnConstructor);
+            XmlNode xnOptions = xmlNode.SelectSingleNode("Options");
+            if (xnOptions != null)
+            {
+                this.Options = new Options(xnOptions);
+            }
+            this.TemplateRotation = Rotation.RoundRobin;
+            XmlNode xnTemplates = xmlNode.SelectSingleNode("Templates");
+            if (xnTemplates != null && xnTemplates.Attributes != null)
+            {
+                XmlAttribute xaRotation = xnTemplates.Attributes["rotation"];
+                if (xaRotation != null)
+                {
+                    this.TemplateRotation = (Rotation) Enum.Parse(typeof (Rotation), xaRotation.InnerText);
+                }
+            }
             XmlNodeList xnlTemplates = xmlNode.SelectNodes("Templates/Case");
             if (xnlTemplates == null)
             {
@@ -77,10 +92,12 @@ namespace GreenlakeChristmas.RDSFeed.Configuration
         public Type SourceType { get; private set; }
         public int RefreshInterval { get; private set; }
         public Constructor Constructor { get; private set; }
+        public Options Options { get; private set; }
         public Template[] Templates
         {
             get { return this.templates.ToArray(); }
         }
+        public Rotation TemplateRotation { get; private set; }
 
         public Priority Priority { get; private set; }
     }

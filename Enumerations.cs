@@ -5,7 +5,8 @@
         Unknown = 0,
         Foursquare = 1,
         Facebook = 2,
-        MediaFile = 3
+        TextFile = 3,
+        Twitter = 4
     }
 
     public enum Priority
@@ -13,5 +14,12 @@
         Immediate,
         General
     }
+
+    public enum Rotation
+    {
+        RoundRobin,
+        Random
+    }
+
 
 }

@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Reflection;
 using Facebook;
-using GreenlakeChristmas.RDSFeed.Configuration;
 
 namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
 {
-    public class FacebookDataSource : IDataSource
+    public class FacebookDataSource : BaseDataSource
     {
         private FacebookClient facebookClient;
         private string application_id;
         private string application_secret;
         private string object_id;
         private DataKey dataKey;
-        private List<Template> templates;
+        //private List<Template> templates;
 
         private enum DataKey
         {
@@ -31,7 +27,7 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
                 string.IsNullOrEmpty(applicationsecret) ||
                 string.IsNullOrEmpty(objectid))
             {
-                throw new ConfigurationErrorsException("");
+                throw new ConfigurationErrorsException("Facebook requires applicationId, applicationsecret and objectid parameters.");
             }
             this.application_id = applicationid;
             this.application_secret = applicationsecret;
@@ -39,7 +35,7 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
             this.RefreshInterval = 30000;
             this.InitializeClient();
             this.dataKey = DataKey.Checkins;
-            this.templates = new List<Template>();
+            //this.templates = new List<Template>();
         }
 
         private void InitializeClient()
@@ -70,36 +66,36 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
             }
         }
 
-        public ContentType ContentType
-        {
-            get { return ContentType.Facebook; }
-        }
+        //public ContentType ContentType
+        //{
+        //    get { return ContentType.Facebook; }
+        //}
 
-        public Priority Priority { get; set; }
+        //public Priority Priority { get; set; }
 
-        public ConcurrentQueue<string> Queue { get; set; }
+        //public ConcurrentQueue<string> Queue { get; set; }
 
-        private DataKey GetNextDataKey(DataKey dataKey)
-        {
-            if (dataKey == DataKey.Checkins) return DataKey.Likes;
-            if (dataKey == DataKey.Likes) return DataKey.Talking_About_Count;
-            if (dataKey == DataKey.Talking_About_Count) return DataKey.Were_Here_Count;
-            if (dataKey == DataKey.Were_Here_Count) return DataKey.Checkins;
-            return DataKey.Checkins;
-        }
+        //private static DataKey GetNextDataKey(DataKey dataKey)
+        //{
+        //    if (dataKey == DataKey.Checkins) return DataKey.Likes;
+        //    if (dataKey == DataKey.Likes) return DataKey.Talking_About_Count;
+        //    if (dataKey == DataKey.Talking_About_Count) return DataKey.Were_Here_Count;
+        //    if (dataKey == DataKey.Were_Here_Count) return DataKey.Checkins;
+        //    return DataKey.Checkins;
+        //}
 
-        public string GetRDSText()
-        {
-            string output = string.Empty;
-            Template template = this.GetTemplate(this.dataKey);
-            MethodInfo methodInfo = this.GetType().GetMethod(template.MethodName);
-            object[] values = (object[])methodInfo.Invoke(this, null);
-            this.dataKey = this.GetNextDataKey(this.dataKey);
-            return string.Format(template.Text, values);
+        //public string GetText()
+        //{
+        //    string output = string.Empty;
+        //    Template template = this.GetTemplate(this.dataKey);
+        //    MethodInfo methodInfo = this.GetType().GetMethod(template.MethodName);
+        //    object[] values = (object[])methodInfo.Invoke(this, null);
+        //    this.dataKey = GetNextDataKey(this.dataKey);
+        //    return string.Format(template.Text, values);
 
-        }
+        //}
 
-        private string GetValue(DataKey dataKey)
+        private string GetValue(DataKey datakey)
         {
             string value = string.Empty;
             JsonObject jsonResult = null;
@@ -114,7 +110,7 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
 
             if (jsonResult != null)
             {
-                value = jsonResult[dataKey.ToString().ToLower()].ToString();
+                value = jsonResult[datakey.ToString().ToLower()].ToString();
             }
             return value;
         }
@@ -147,24 +143,32 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
             return values;
         }
 
-        public int RefreshInterval { get; set; }
+        //public int RefreshInterval { get; set; }
 
-        public void Add(Template template)
+        //public void Add(Template template)
+        //{
+        //    this.templates.Add(template);
+        //}
+
+        //public Rotation TemplateRotation { get; set; }
+
+        //public Options Options { get; set; }
+
+        //private Template GetTemplate(DataKey datakey)
+        //{
+        //    foreach (Template template in this.templates)
+        //    {
+        //        if (template.When.ToLower() == datakey.ToString().ToLower())
+        //        {
+        //            return template;
+        //        }
+        //    }
+        //    return null;
+        //}
+
+        public override ContentType ContentType
         {
-            this.templates.Add(template);
+            get { return ContentType.Facebook; }
         }
-
-        private Template GetTemplate(DataKey dataKey)
-        {
-            foreach (Template template in this.templates)
-            {
-                if (template.When.ToLower() == dataKey.ToString().ToLower())
-                {
-                    return template;
-                }
-            }
-            return null;
-        }
-
     }
 }

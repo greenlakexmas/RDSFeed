@@ -14,19 +14,23 @@
   <Sources>
     <!-- Source
       A Source has a name (unique in the overall list) and the type (the fully-qualified class name.)
-  -->
-    <Source name="LORMediaFile" type="GreenlakeChristmas.RDSFeed.DataSources.MediaFile.MediaFileDataSource">
+ 
+    A source for Facebook is defined.
+    An implementation for Facebook is already included in RDSFeed. The Constructor parameters require 
+    authentication data obtained from the Facebook API developer portal (https://developers.facebook.com/apps).
+    -->
+    <Source name="Facebook" type="GreenlakeChristmas.RDSFeed.DataSources.Facebook.FacebookDataSource">
       <!-- RefreshInterval
-      The time duration loop speed, measured in seconds. This setting will look for changes in the LOR media file
-      every 5 seconds.
+      The time duration loop speed, measured in seconds. This setting will refresh data from Facebook
+      every 30 seconds.
       -->
-      <RefreshInterval>5</RefreshInterval>
+      <RefreshInterval>30</RefreshInterval>
       <!-- Priority
       Determines how quickly text updates are handled. Priority is either "Immediate" or "General". With Immediate
       priority, a text update is sent over RDS right away. With General priority, the text update will occur in
       FIFO order.
       -->
-      <Priority>Immediate</Priority>
+      <Priority>General</Priority>
       <!-- Constructor
       The Constructor defines Parameters for instantiating an instance of the Source at runtime.
       -->
@@ -35,27 +39,47 @@
       The Parameter is a name and value pair. Parameters are used in reflective instantiation of the Source, and
       are order dependent.
       -->
-        <Parameter name="mediafilepath" value="c:\Users\me\song.txt" />
+        <Parameter name="applicationid" value="{your-application-id}" />
+        <Parameter name="applicationsecret" value="{your-application-secret}" />
+        <Parameter name="objectid" value="{your-objectid}" />
       </Constructor>
       <!-- Templates
-      Templates define text strings used at runtime in generation of RDS data.
+      Templates define text output at runtime from programmatic methods. One or more templates
+      may be defined.
+      
+      Templates also define a rotation, which dictates the order of processing for the templates.
+      Two rotation types are supported: RoundRobin and Random. When RoundRobin rotation is used, 
+      each template will be executed in the order they are defined in this configuration file.
+      In Random rotation, a template is randomly selected each time template processing occurs.
       -->
-      <Templates>
+      <Templates rotation="RoundRobin">
         <!-- Case
         A Case defines a specific scenario when a template is to be applied.
-        When: defines the lookup key to be evaluated to determine if a template is to be used. The
-        values for "when" are dependent on the Source itself. Documentation provides the possible
-        range of "when" options.
-        
-        Method: the method on the class to execute if the "when" scenario applies. Any Case method must
-        return a string array. Each method will specifically return one or more string values to be 
-        applied to a template. Documentation about the method provides the list of possible values.
-        
-        Template: the text string to be used in generating any RDS statement. This is a standard C#
+        When: defines the lookup key to be evaluated to determine if a template is to be used. Each Case
+        must have a unique "when" in the list of cases.
+
+        Method: the programmatic method on the class to execute. Any Case method must return a string array. 
+        Each method will specifically return one or more string values to be applied to a template. 
+        Documentation about the method provides the list of possible values.
+
+        Template: the formatted text string to be used in generating text output. This is a standard C#
         string format structure, with parameters referenced in curly brackets with numerical reference
         to a parameter list (0,1,2,etc.)
         -->
-        <Case when="" method="GetSongTitle" template="{0}" />
+        <Case when="Checkins" method="GetCheckins" template="{0} people have checked in at Greenlake Christmas on Facebook" />
+        <Case when="TalkingAboutCount" method="GetTalkingAboutCount" template="{0} people are talking about Greenlake Christmas on Facebook" />
+        <Case when="Likes" method="GetLikes" template="{0} people like Greenlake Christmas on Facebook" />
+        <Case when="WereHereCount" method="GetWereHereCount" template="{0} people were at Greenlake Christmas on Facebook" />
+      </Templates>
+    </Source>
+    <Source name="LORMediaFile" type="GreenlakeChristmas.RDSFeed.DataSources.TextFile.TextFileDataSource">
+      <RefreshInterval>5</RefreshInterval>
+      <Priority>Immediate</Priority>
+      <Constructor>
+        <Parameter name="textfilepath" value="c:\Users\me\song.txt" />
+      </Constructor>
+      <Templates>
+        <Case when="SongTitle" method="GetSongTitle" template="{0}" />
       </Templates>
     </Source>
     <!-- FourSquare
@@ -66,32 +90,36 @@
       <RefreshInterval>30</RefreshInterval>
       <Priority>General</Priority>
       <Constructor>
-        <Parameter name="oauthtoken" value="ZYXWVUTSRQPONMLKJIHGFEDCBA987654321" />
-        <Parameter name="venueid" value="a1b2c3d4e5f6g7h8i9" />
+        <Parameter name="oauthtoken" value="{your-oauth-token}" />
+        <Parameter name="venueid" value="{your-venue-id}" />
         <Parameter name="datafilepath" value="c:\Users\me\4sq.txt" />
       </Constructor>
-      <Templates>
+      <Templates rotation="RoundRobin">
         <Case when="Checkin" method="GetCheckin" template="{0} checked in on 4square on {1} {2}" />
         <Case when="Mayor" method="GetMayor" template="{0} is the Mayor of Greenlake Christmas on 4square" />
       </Templates>
     </Source>
-    <!-- Facebook
-    An implementation for Facebook is already included. The Constructor parameters require authentication
-    data obtained from the Facebook API developer portal (https://developers.facebook.com/apps).
+    <!-- Twitter
+    An implementation for Twitter is already included. The Constructor parameters require authentication
+    data obtained from the Twitter API developer portal (https://dev.twitter.com/).
     -->
-    <Source name="Facebook" type="GreenlakeChristmas.RDSFeed.DataSources.Facebook.FacebookDataSource">
-      <RefreshInterval>45</RefreshInterval>
+    <Source name="Twitter" type="GreenlakeChristmas.RDSFeed.DataSources.Twitter.TwitterDataSource">
+      <RefreshInterval>30</RefreshInterval>
       <Priority>General</Priority>
       <Constructor>
-        <Parameter name="applicationid" value="1234567890" />
-        <Parameter name="applicationsecret" value="1234abcd5678efgh9012ijkl3456mnop" />
-        <Parameter name="objectid" value="9876543210" />
+        <Parameter name="accesstoken" value="{your-access-token}" />
+        <Parameter name="accesstokensecret" value="{your-access-token-secret}" />
+        <Parameter name="consumerkey" value="{your-consumer-key}" />
+        <Parameter name="consumersecret" value="{your-consumer-secret}" />
       </Constructor>
-      <Templates>
-        <Case when="Checkins" method="GetCheckins" template="{0} people have checked in at Greenlake Christmas on Facebook" />
-        <Case when="Talking_About_Count" method="GetTalkingAboutCount" template="{0} people are talking about Greenlake Christmas on Facebook" />
-        <Case when="Likes" method="GetLikes" template="{0} people like Greenlake Christmas on Facebook" />
-        <Case when="Were_Here_Count" method="GetWereHereCount" template="{0} people were at Greenlake Christmas on Facebook" />
+      <Options>
+        <Parameter name="hashtag" value="christmas" />
+      </Options>
+      <Templates rotation="Random">
+        <Case when="Mention" method="GetMention" template="{2}({0})" />
+        <Case when="Retweet" method="GetRetweet" template="{2}({0})" />
+        <Case when="Tweet" method="GetTweet" template="{2}({0})" />
+        <Case when="Hashtag" method="GetHashTweet" template="{2}({0})" />
       </Templates>
     </Source>
   </Sources>

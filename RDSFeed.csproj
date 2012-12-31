@@ -44,17 +44,24 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Twitterizer2, Version=2.4.2.14276, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Twitterizer2.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Constructor.cs" />
+    <Compile Include="Configuration\Options.cs" />
     <Compile Include="Configuration\Parameter.cs" />
     <Compile Include="Configuration\Source.cs" />
     <Compile Include="Configuration\Template.cs" />
+    <Compile Include="DataSources\BaseDataSource.cs" />
     <Compile Include="DataSources\Facebook\FacebookDataSource.cs" />
     <Compile Include="DataSources\Foursquare\FoursquareDataSource.cs" />
     <Compile Include="DataSources\Foursquare\LogFile.cs" />
     <Compile Include="DataSources\Foursquare\LogRecord.cs" />
-    <Compile Include="DataSources\MediaFile\MediaFileDataSource.cs" />
+    <Compile Include="DataSources\TextFile\TextFileDataSource.cs" />
+    <Compile Include="DataSources\Twitter\TwitterDataSource.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
     <Compile Include="Program.cs" />

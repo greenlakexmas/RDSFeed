@@ -8,8 +8,10 @@ namespace GreenlakeChristmas.RDSFeed.DataSources
         ContentType ContentType { get; }
         Priority Priority { get; set; }
         ConcurrentQueue<string> Queue { get; set; }
-        string GetRDSText();
+        string GetText();
         int RefreshInterval { get; set; }
         void Add(Template template);
+        Rotation TemplateRotation { get; set; }
+        Options Options { get; set; }
     }
 }

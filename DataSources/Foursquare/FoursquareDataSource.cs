@@ -1,29 +1,17 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Reflection;
 using GreenlakeChristmas.FourSquare.Objects;
-using GreenlakeChristmas.RDSFeed.Configuration;
 
 namespace GreenlakeChristmas.RDSFeed.DataSources.Foursquare
 {
-    public class FoursquareDataSource : IDataSource
+    public class FoursquareDataSource : BaseDataSource
     {
         private string oauth_token;
         private string venue_id;
         private string data_file_path;
         private LogFile logFile;
-        private DataMode dataMode;
-        private List<Template> templates;
-
-        private enum DataMode
-        {
-            Unknown,
-            Checkin,
-            Mayor
-        }
 
         public FoursquareDataSource(string oauthtoken, string venueid, string datafilepath)
         {
@@ -37,27 +25,7 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Foursquare
             this.venue_id = venueid;
             this.data_file_path = datafilepath;
             this.logFile = new LogFile(this.data_file_path);
-            this.dataMode = DataMode.Checkin;
             this.RefreshInterval = 30000;
-            this.templates = new List<Template>();
-        }
-
-        public ContentType ContentType
-        {
-            get { return ContentType.Foursquare; }
-        }
-
-        public Priority Priority { get; set; }
-        
-        public ConcurrentQueue<string> Queue { get; set; }
-
-        public string GetRDSText()
-        {
-            string output = string.Empty;
-            Template template = this.GetTemplate(this.dataMode);
-            MethodInfo methodInfo = this.GetType().GetMethod(template.MethodName);
-            object[] values = (object[]) methodInfo.Invoke(this, null);
-            return string.Format(template.Text, values);
         }
 
         public object[] GetCheckin()
@@ -93,24 +61,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Foursquare
             return output;
         }
 
-        public int RefreshInterval { get; set; }
-        public void Add(Template template)
-        {
-            this.templates.Add(template);
-        }
-
-        private Template GetTemplate(DataMode dataMode)
-        {
-            foreach(Template template in this.templates)
-            {
-                if (template.When.ToLower() == dataMode.ToString().ToLower())
-                {
-                    return template;
-                }
-            }
-            return null;
-        }
-
         private string GetOrdinal(int num)
         {
             switch (num % 100)
@@ -135,5 +85,9 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Foursquare
 
         }
 
+        public override ContentType ContentType
+        {
+            get { return ContentType.Foursquare; }
+        }
     }
 }
