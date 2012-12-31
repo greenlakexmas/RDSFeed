@@ -13,28 +13,29 @@ configuring it to run for yourself.
 
 Out of the box, RDSFeed supports three data sources:
 
-* Media files
+* Text files
 * Facebook
 * Foursquare
+* Twitter
 
 Each data source is controlled through configuration.
 
-### Media files
+### Text files
 
 ```
-    <Source name="LORMediaFile" type="GreenlakeChristmas.RDSFeed.DataSources.MediaFile.MediaFileDataSource">
+    <Source name="LORMediaFile" type="GreenlakeChristmas.RDSFeed.DataSources.TextFile.TextFileDataSource">
       <RefreshInterval>5</RefreshInterval>
       <Priority>Immediate</Priority>
       <Constructor>
-        <Parameter name="mediafilepath" value="c:\Users\me\song.txt" />
+        <Parameter name="textfilepath" value="c:\Users\me\song.txt" />
       </Constructor>
       <Templates>
-        <Case when="" method="GetSongTitle" template="{0}" />
+        <Case when="SongTitle" method="GetSongTitle" template="{0}" />
       </Templates>
     </Source>
 ```
 
-This is the example configuration section for a media file data source. To understand operation, it's best
+This is the example configuration section for a text file data source. To understand operation, it's best
 to look at each part of the configuration.
 
 ###### &lt;Source&gt; node
