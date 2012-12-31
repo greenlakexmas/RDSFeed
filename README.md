@@ -81,3 +81,13 @@ refresh a new message every 30 seconds.
 * Constructor - parameters used to start up the data source.
 * Templates - formatted text strings mapped to programmatic methods to produce text output
 * Options - supplemental parameters that may optionally be needed for a data source
+
+#### Extensibility
+
+The RDSFeed application is an operational container that dynamically loads data sources via configuration. 
+Additional data sources can be constructed implementing the 
+[IDataSource](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/IDataSource.cs) interface. The
+existing data sources use a 
+[base implementation](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/BaseDataSource.cs) 
+for consistency and code re-use. If you wish to add a data source, look to the existing implementations
+for guidance.
