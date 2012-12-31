@@ -20,7 +20,8 @@ Out of the box, RDSFeed supports three data sources:
 
 Each data source is controlled through configuration.
 
-### Text files
+This is the example configuration section for a text file data source. To understand operation, it's best
+to look at each part of the configuration.
 
 ```
     <Source name="LORMediaFile" type="GreenlakeChristmas.RDSFeed.DataSources.TextFile.TextFileDataSource">
@@ -34,9 +35,6 @@ Each data source is controlled through configuration.
       </Templates>
     </Source>
 ```
-
-This is the example configuration section for a text file data source. To understand operation, it's best
-to look at each part of the configuration.
 
 ###### &lt;Source&gt; node
 ```
