@@ -54,7 +54,7 @@ which we'll refer to here.
 There are several sections to rds.config that are important to successful operation of RDSFeed. Here's a breakdown
 of those sections:
 
-* RefreshInterval - The time duration loop speed, measured in seconds. This setting will 
+* RefreshInterval - the time duration loop speed, measured in seconds. This setting will 
 refresh a new message every 30 seconds.
 * MergeFile - The target output file for RDSFeed.
 * Sources - The different sources of text information. Each source is defined here.
@@ -62,7 +62,9 @@ refresh a new message every 30 seconds.
 Each Source consists of the following:
 
 * Name and Type - attributes of the Source that identify it (by name) 
-* RefreshInterval - The time duration loop speed, measured in seconds. This setting will 
+* RefreshInterval - the time duration loop speed, measured in seconds. This setting will 
 refresh a new message every 30 seconds.
-* MergeFile - The target output file for RDSFeed.
-* Sources - The different sources of text information. Each source is defined here.
+* Priority - the importance of the message. Setting is either Immediate or General.
+* Constructor - parameters used to start up the data source.
+* Templates - formatted text strings mapped to programmatic methods to produce text output
+* Options - supplemental parameters that may optionally be needed for a data source
