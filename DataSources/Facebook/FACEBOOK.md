@@ -28,15 +28,37 @@ on the [C# Facebook SDK](http://csharpsdk.org/).
 
 * applicationid - the application id, provided by Facebook.
 * applicationsecret - the application secret, provided by Facebook.
-* objectid - the object id, provided by Facebook.
+* objectid - the object id, provided by Facebook. Object Id is presumed to be a Facebook page with location.
 
 ## Template methods
 
-[GetCheckins](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/TextFile/TextFileDataSource.cs#L17)
+[GetCheckins](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/Facebook/FacebookDataSource.cs#L87)
 
 #### Returns
 
-String array, index 0: the first line of the monitored text file
+String array, index 0: the number of people who have checked in at the Facebook place.
 
-* If the source text file exists, the file content is read (the first line)
-* If the content has changed from previous, a string array of length 1 with the first line of the text file
+---
+
+[GetTalkingAboutCount](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/Facebook/FacebookDataSource.cs#L94)
+
+#### Returns
+
+String array, index 0: the number of people who have shared posts and/or are "talking about" this Facebook object Id.
+
+---
+
+[GetLikes](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/Facebook/FacebookDataSource.cs#L101)
+
+#### Returns
+
+String array, index 0: the number of people who have "liked" this Facebook object Id.
+
+---
+
+[GetWereHereCount](https://github.com/greenlakexmas/RDSFeed/blob/master/DataSources/Facebook/FacebookDataSource.cs#L108)
+
+#### Returns
+
+String array, index 0: the number of people who "were here" at this Facebook object Id.
+
