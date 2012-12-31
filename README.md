@@ -8,7 +8,8 @@ that can accept text, such as scrolling LED readers.
 
 ## Getting started
 
-[RDSFeed installer](https://dl.dropbox.com/u/7320109/RDSFeedInstall.msi).
+==> [RDSFeed installer](https://dl.dropbox.com/u/7320109/RDSFeedInstall.msi) The installer adds RDSFeed 
+and all supporting files on your PC.
 
 There is also a [quickstart](https://github.com/greenlakexmas/RDSFeed/blob/master/QUICKSTART.md) to make you
 more informed.
