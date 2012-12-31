@@ -1,9 +1,9 @@
 # RDSFeed
 
-RDSFeed is an application for constructing timely text statements from multiple inforation sources for use over RDS. 
-Actually, "RDS" (an acronym for Radio Data System) is a misnomer here -- I use this application for sending 
-data over RDS. However, it can just as easily work for other systems that can accept text, such as scrolling 
-LED readers.
+RDSFeed is an application for outputting timely text statements from multiple information sources for use 
+in text presentation systems. Actually, "RDS" (an acronym for Radio Data System) is a misnomer here -- I 
+use this application for sending data over RDS. However, it can just as easily work for other systems 
+that can accept text, such as scrolling LED readers.
 
 
 ## What it does
