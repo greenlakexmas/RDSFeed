@@ -14,6 +14,8 @@ and all supporting files on your PC.
 There is also a [quickstart](https://github.com/greenlakexmas/RDSFeed/blob/master/QUICKSTART.md) to make you
 more informed.
 
+And of course, the entire source for RDSFeed is available here.
+
 ## What it does
 
 RDSFeed is an operational container for producing text statements in a timely manner. The RDSFeed application
