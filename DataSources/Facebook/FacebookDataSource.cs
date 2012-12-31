@@ -11,7 +11,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
         private string application_secret;
         private string object_id;
         private DataKey dataKey;
-        //private List<Template> templates;
 
         private enum DataKey
         {
@@ -35,7 +34,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
             this.RefreshInterval = 30000;
             this.InitializeClient();
             this.dataKey = DataKey.Checkins;
-            //this.templates = new List<Template>();
         }
 
         private void InitializeClient()
@@ -65,35 +63,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
                 this.facebookClient.AccessToken = (string)result["access_token"];
             }
         }
-
-        //public ContentType ContentType
-        //{
-        //    get { return ContentType.Facebook; }
-        //}
-
-        //public Priority Priority { get; set; }
-
-        //public ConcurrentQueue<string> Queue { get; set; }
-
-        //private static DataKey GetNextDataKey(DataKey dataKey)
-        //{
-        //    if (dataKey == DataKey.Checkins) return DataKey.Likes;
-        //    if (dataKey == DataKey.Likes) return DataKey.Talking_About_Count;
-        //    if (dataKey == DataKey.Talking_About_Count) return DataKey.Were_Here_Count;
-        //    if (dataKey == DataKey.Were_Here_Count) return DataKey.Checkins;
-        //    return DataKey.Checkins;
-        //}
-
-        //public string GetText()
-        //{
-        //    string output = string.Empty;
-        //    Template template = this.GetTemplate(this.dataKey);
-        //    MethodInfo methodInfo = this.GetType().GetMethod(template.MethodName);
-        //    object[] values = (object[])methodInfo.Invoke(this, null);
-        //    this.dataKey = GetNextDataKey(this.dataKey);
-        //    return string.Format(template.Text, values);
-
-        //}
 
         private string GetValue(DataKey datakey)
         {
@@ -142,29 +111,6 @@ namespace GreenlakeChristmas.RDSFeed.DataSources.Facebook
             values[0] = this.GetValue(DataKey.Were_Here_Count);
             return values;
         }
-
-        //public int RefreshInterval { get; set; }
-
-        //public void Add(Template template)
-        //{
-        //    this.templates.Add(template);
-        //}
-
-        //public Rotation TemplateRotation { get; set; }
-
-        //public Options Options { get; set; }
-
-        //private Template GetTemplate(DataKey datakey)
-        //{
-        //    foreach (Template template in this.templates)
-        //    {
-        //        if (template.When.ToLower() == datakey.ToString().ToLower())
-        //        {
-        //            return template;
-        //        }
-        //    }
-        //    return null;
-        //}
 
         public override ContentType ContentType
         {
